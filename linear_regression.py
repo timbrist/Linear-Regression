@@ -57,3 +57,8 @@ print('w=%f, b=%f'%(value[0],value[1]))
 plt.scatter(X, Y, color = 'red')
 plt.plot(X , predic(X,value[0],value[1]), color ='yellow')
 plt.show()
+
+#testing weights
+# w = np.array([1,1,1,1,1,1,1,1])
+# b = np.array([1,1,1,1,1,1,1,1])
+# print(predic(X,w,b))
