@@ -41,7 +41,7 @@ def steepest_descent(f,start,step,precision):
 def linear_regression():
     F = []
     for i in range(0, np.size(X)):
-        fi = lambda p: (Y[i]-predic(X[i],p[0],p[1]))**2
+        fi = lambda p: (Y[i]-predict(X[i],p[0],p[1]))**2
         F.append(fi)
     loss = lambda p: sum( fi(p) for fi in F)/8
     #print(loss([11,2.5]))
