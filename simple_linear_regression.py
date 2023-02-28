@@ -6,7 +6,7 @@ X=np.array([1.1, 2.5, 2.5, 3.2, 5.5, 7.7, 8.9, 9.2])
 Y=np.array([17, 21, 30, 27, 60, 85, 88, 95])
 
 #prediction function
-def predic(x,w,b):
+def predict(x,w,b):
     return w*x+b
 
 def gradient(f,X,h):
@@ -55,7 +55,7 @@ def linear_regression():
 value = linear_regression()
 print('w=%f, b=%f'%(value[0],value[1]))
 plt.scatter(X, Y, color = 'red')
-plt.plot(X , predic(X,value[0],value[1]), color ='yellow')
+plt.plot(X , predict(X,value[0],value[1]), color ='yellow')
 plt.show()
 
 #testing weights
