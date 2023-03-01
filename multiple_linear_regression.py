@@ -3,23 +3,30 @@ import matplotlib.pyplot as plt
 
 X=np.array([
     [1.1, 2.5, 2.5, 3.2, 5.5, 7.7, 8.9, 9.2],
-    [3,4,5,6,7,8,9,10] ])
+    [3,     4, 5,   6,   7,   8,   9,   10] ])
 #| 17  | 21  | 30  | 27  | 60  | 85  | 88  | 95  |
 Y=np.array([17, 21, 30, 27, 60, 85, 88, 95])
 
+def plot_3d_function(f, X,Y):
+    ax = plt.figure().add_subplot(projection='3d')
+    ax.scatter(X[0], X[1],Y, color = 'red')
+    ax.plot(X[0], X[1], f(X), color ='yellow')
+    plt.show()
+
+
 #prediction function
 def predict(x,w,b):
-    return w*x+b
+    return np.dot(w,x)+b
 
 #mean square error, risk function, cost function
 def loss_function(predict,x,y):
-    num_rows, num_cols = x.shape
+    xi = x.transpose()
+    num_rows, num_cols = xi.shape
     L = []
     for i in range(0, num_rows):
-        for j in range(0, num_cols):
-            l = lambda w,b: (y[j] - predict(x[:j], w, b))**2
-            L.append(l)
-    loss = lambda p : sum(  i( p[0], p[1] ) for i in L  ) / num_cols
+        l = lambda w,b: (y[i] - predict(xi[i], w, b))**2
+        L.append(l)
+    loss = lambda p : sum(  i( p[0], p[1] ) for i in L  ) / num_rows
     return loss
 
 def gradient(f,X,h):
@@ -54,48 +61,24 @@ def steepest_descent(f,start,step,precision):
 def linear_regression(x,y):
     loss = loss_function(predict, x, y)
     #print(loss([11,2.5]))
-    w = np.zeros(x.size)
-    b = np.zeros(x.size)
-    start = [w,b]
+    xi = x.transpose()
+    num_rows, num_cols = xi.shape
+    w = np.zeros(num_cols)
+    b = 0.0
+    #b = b.reshape((num_rows,1))
+    
+    start = np.array([w,b])
     step_size = 0.001
     precision = 0.00001
     (x_value,f_value,steps) = steepest_descent(loss,start,step_size,precision)
     return x_value
 
 
-# value = linear_regression(X,Y)
-# print('w=%f, b=%f'%(value[0],value[1]))
+value = linear_regression(X,Y)
+print(value)
 # plt.scatter(X, Y, color = 'red')
 # plt.plot(X , predict(X,value[0],value[1]), color ='yellow')
 # plt.show()
 
-#testing weights
-w = np.array([1,1,1,1,1,1,1,1])
-#b = np.array([1,1,1,1,1,1,1,1])
-b = np.array([0,0,0,0,0,0,0,0])
-# print(predict(X,w,b))
-
-
-# l1 = lambda w, b: (Y[0]-predict(X[0],w,b))**2
-# l2 = lambda w, b: (Y[1]-predict(X[1],w,b))**2
-# l3 = lambda w, b: (Y[2]-predict(X[2],w,b))**2
-
-# L.append(l3)
-# loss = lambda p : sum(  i( p[0],p[1] ) for i in L  ) /8
-
-# l = lambda p: l1(p[0],p[1])+l2(p[0],p[1])+l3(p[0],p[1])
-
-loss = loss_function(predict, X, Y)
-
-L = []
-l1 = lambda w, b: (Y-predict(X[0],w,b))**2
-l2 = lambda w, b: (Y-predict(X[1],w,b))**2
-L.append(l1)
-L.append(l2)
-ll = lambda p : sum(  i( p[0],p[1] ) for i in L  ) /8
-
-l = lambda p: (l1(p[0],p[1])+l2(p[0],p[1]))/8
-
-print( loss([w,b]))
-print(ll([w,b]))
-print(l([w,b]))
+new_predict = lambda x: predict(x,value[0],value[1])
+plot_3d_function(new_predict,X,Y)
