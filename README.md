@@ -1,6 +1,8 @@
 ### Purpose
-I wish this simple linear regression will help you to understand machine learning more.
-with simple example, the tutorial tells how human find relationship among data by hand, and form a mathematical model then implement into computer.
-for the future, I try to add multi linear regression if I survived from my spring semester. 
 
-The multiple linear regression implenmentation have merged into master branch, but the explanation still needs time.
+This repository introduce the linear regression without any import library or package. 
+
+it start with simple linear regression, shows you how can you make a linear regression without calculator or computer. And gradually it describe how to make linear regression into math model, and implement it into program. 
+
+in the program, we use the easiest optimization method to find the mean square error called the steepest decent. 
+
